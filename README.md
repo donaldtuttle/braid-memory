@@ -1,8 +1,10 @@
 # Braid Memory
 
+Includes the **Simulation** instrument and a separate **Experiment** tab for a real, scored synthetic retrieval task.
+
 Side quest of [HME](https://github.com/donaldtuttle/HME). ReflectiveStack × GeminiPath as a **lab instrument**, not a store.
 
-The field remembers the shape. The ledger remembers the name. This repo remembers neither. It pairs two glyph traces with a time offset (`Γ_Gemini`) and asks whether that braid extra-damps divergence, or whether emotion hysteresis does all the work.
+In the Simulation tab: the field remembers the shape. The ledger remembers the name. This repo remembers neither. It pairs two glyph traces with a time offset (`Γ_Gemini`) and asks whether that braid extra-damps divergence, or whether emotion hysteresis does all the work.
 
 It does **not** write the HME field or the ledger. Glyphs here are the QOFT operator tags HME records on encode/retrieve; the payloads and hashes stay in HME.
 
@@ -47,16 +49,37 @@ Ablation (the part that makes it an instrument):
 
 Operator mix under fear (Ξ_B during divergence) is a **hypothesis**: shift toward `Θλ` + `Λψ`, off `Σ◯`. Recovery writes and locks lineage. Falsify it with the Random control.
 
+## Find the Right Memory experiment
+
+Open **Experiment → Run comparison**. Three methods try to recover the actual
+source of each update: ordinary content/timing search, ordered braid-assisted
+alignment, and scrambled connections. Each uses the same records and pair-score
+budget; a separate answer key determines correctness.
+
+- Control missing clues, distractions, delay variation, seed, and sample size.
+- Compare accuracy at your selected settings and three harder conditions.
+- Replay any history, step through its updates, and reveal the correct source.
+- Download full JSON results or a per-prediction CSV.
+
+Ordinary search is a global one-to-one assignment baseline. The braid adds an
+order constraint and can lose when updates arrive out of order. This is ordinary
+sequence alignment on synthetic records, not HME field retrieval or validation
+of QOFT. Results are exploratory; no method is programmed to win.
+
+Read the [fixed v1 protocol](docs/MEMORY_EXPERIMENT.md) and
+[verification record](docs/MEMORY_EXPERIMENT_VERIFICATION.md). Link directly to the
+experiment with `#experiment` on the deployed site.
+
 ## Run
 
 This is the standalone React/Vite version of the
 [Grok simulation](https://hme-operator-braid-memory.grok.me/).
 It runs entirely in the browser; no Grok account, API key, or backend is required.
-Use Node.js 24 (see `.nvmrc`).
+Use Node.js 24.15 or newer within the 24.x line (see `.nvmrc`).
 
 ```bash
 npm ci            # install the versions recorded in package-lock.json
-npm test          # engine tests (node:test, no bundler)
+npm test          # engine/protocol tests and DOM interaction checks
 npm run dev       # lab instrument
 ```
 

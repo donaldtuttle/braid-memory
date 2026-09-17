@@ -93,7 +93,7 @@ export function LabShell() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement | null)?.tagName;
-      if (tag === "INPUT" || tag === "TEXTAREA") return;
+      if (["INPUT", "TEXTAREA", "SELECT", "BUTTON", "A"].includes(tag ?? "")) return;
       if (e.code === "Space") {
         e.preventDefault();
         togglePlay();
