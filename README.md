@@ -1,6 +1,27 @@
 # Braid Memory
 
-Includes the **Simulation** instrument and a separate **Experiment** tab for a real, scored synthetic retrieval task.
+## New: Find the Right Memory
+
+**Can connecting two histories help find the right earlier memory?** The new
+Experiment tab compares ordinary search, braid-assisted search, and scrambled
+connections using the same generated records and a separate answer key.
+
+**[Read the experiment guide](docs/MEMORY_EXPERIMENT.md)** ·
+**[See the first results and verification](docs/MEMORY_EXPERIMENT_VERIFICATION.md)** ·
+**[Browse the experiment code](src/components/experiment/Experiment.tsx)**
+
+Adjust missing clues, distractions, and delays; replay the choices; reveal the
+correct answers; and download the results as JSON or CSV.
+
+**Try it:** follow the [local setup](#run), then select
+**Experiment → Run comparison** inside the app. For a shareable browser link,
+follow the [GitHub Pages setup](#publish-the-simulation-on-github-pages).
+The Experiment tab is part of this repository’s app; the original Grok-hosted
+simulation does not receive these GitHub updates.
+
+The existing **Simulation** tab remains available alongside the experiment.
+
+---
 
 Side quest of [HME](https://github.com/donaldtuttle/HME). ReflectiveStack × GeminiPath as a **lab instrument**, not a store.
 
