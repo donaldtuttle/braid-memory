@@ -49,13 +49,45 @@ Operator mix under fear (Ξ_B during divergence) is a **hypothesis**: shift towa
 
 ## Run
 
+This is the standalone React/Vite version of the
+[Grok simulation](https://hme-operator-braid-memory.grok.me/).
+It runs entirely in the browser; no Grok account, API key, or backend is required.
+Use Node.js 24 (see `.nvmrc`).
+
 ```bash
-npm install
+npm ci            # install the versions recorded in package-lock.json
 npm test          # engine tests (node:test, no bundler)
 npm run dev       # lab instrument
 ```
 
+Open the local URL printed by Vite. For the production build:
+
+```bash
+npm run build     # typecheck and generate dist/
+npm run preview   # serve the production build locally
+```
+
 Seed is deterministic. Space plays, arrows step.
+
+## Publish the simulation on GitHub Pages
+
+The **Simulation** workflow tests and builds every push to `main` and every
+pull request. Once Pages is configured, successful `main` builds also deploy.
+Before that, deployment is skipped and the build remains available as an artifact.
+
+One-time setup in this repository:
+
+1. Open **Settings → Pages**.
+2. Under **Build and deployment → Source**, select **GitHub Actions**.
+3. Open **Actions → Simulation → Run workflow**, choose `main`, and run it.
+4. Open the site link in the successful **deploy** job or in **Settings → Pages**.
+
+Relative asset paths allow the same `dist/` output to run at a repository subpath
+such as `/braid-memory/` or at a domain root. Serve `dist/` over HTTP; opening
+`index.html` directly with `file://` is not supported.
+
+See [the port verification record](docs/GROK_PORT.md) for the source boundary and
+the checks used to compare this build with the Grok app.
 
 ## Claims not to make
 

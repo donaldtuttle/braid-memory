@@ -1,0 +1,71 @@
+name: Simulation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: simulation-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    outputs:
+      pages_enabled: ${{ steps.pages.outputs.result }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - name: Upload simulation
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+      - name: Check Pages configuration
+        id: pages
+        if: github.event_name != 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            try {
+              const { data } = await github.rest.repos.getPages(context.repo);
+              if (data.build_type === 'workflow') return true;
+            } catch (error) {
+              if (error.status !== 404) throw error;
+            }
+            await core.summary
+              .addHeading('Simulation build is ready')
+              .addRaw('To publish, select Settings → Pages → Build and deployment → Source → GitHub Actions, then run the Simulation workflow again. The build artifact is available without enabling Pages.')
+              .write();
+            return false;
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && needs.build.outputs.pages_enabled == 'true'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Deploy simulation
+        id: deployment
+        uses: actions/deploy-pages@v4
