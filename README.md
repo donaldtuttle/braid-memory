@@ -25,9 +25,9 @@ The existing **Simulation** tab remains available alongside the experiment.
 
 Side quest of [HME](https://github.com/donaldtuttle/HME). ReflectiveStack × GeminiPath as a **lab instrument**, not a store.
 
-In the Simulation tab: the field remembers the shape. The ledger remembers the name. This repo remembers neither. It pairs two glyph traces with a time offset (`Γ_Gemini`) and asks whether that braid extra-damps divergence, or whether emotion hysteresis does all the work.
+In the Simulation tab: the field remembers the shape. The ledger remembers the name. This repo remembers neither. It pairs two operation traces with a time offset (`Γ_Gemini`) and asks whether that braid extra-damps divergence, or whether emotion hysteresis does all the work.
 
-It does **not** write the HME field or the ledger. Glyphs here are the QOFT operator tags HME records on encode/retrieve; the payloads and hashes stay in HME.
+It does **not** write the HME field or the ledger. Labels here are a closed hypothesis about HME 3 tick roles. The live engine stores an open `operation` string, default `write`. Payloads and hashes stay in HME.
 
 ## What this is / is not
 
@@ -35,7 +35,7 @@ It does **not** write the HME field or the ledger. Glyphs here are the QOFT oper
 | --- | --- |
 | Seeded simulation of two agent traces | A quantum computer |
 | Ablation of hysteresis vs identity recovery | Calibrated HME `confidence` |
-| Ranked glyph-addressed crossings | `retrieve_memory` |
+| Ranked operation crossings | `retrieve_memory` |
 | Hypothesis about operator mix under affect | A measurement from the engine |
 
 If dampening tracks hysteresis, the braid is not doing the work. If identity density recovers after re-entangle, GeminiPath extra-damps. Random traces are the control.
@@ -61,7 +61,7 @@ The 2025 notebook used a decorative alphabet (`Ξμ`, `Σ⊖`, `Ωµ`). This ins
 ```
 Ψintent(t)      = 0.5·t + emotion_weight(t) + 2·coherence(t)
 braid_word(t)   = (Ξ_A[t], Ξ_B[t + Δt])          ← Γ_Gemini
-braid_coherence = 1 if glyphs match else 0.5
+braid_coherence = 1 if operations match else 0.5
 ΔΨ_braid        = |Ψ_A − Ψ_B| − γ · braid_coherence
 ```
 
@@ -71,7 +71,7 @@ Ablation (the part that makes it an instrument):
 - **Identity share** = `γ · (coherence_post − coherence_div) / mean_raw_div`. Extra dampening from match-rate recovery, *not* from subtracting γ (that always inflates the ratio).
 - **16-seed sweep** from the current seed.
 
-Operator mix under fear (Ξ_B during divergence) is a **hypothesis**: shift toward `Θλ` + `Λψ`, off `Σ◯`. Recovery writes and locks lineage. Falsify it with the Random control.
+Operator mix under fear (Ξ_B during divergence) is a **hypothesis**: shift toward `retrieve` + `event`, off `write`. Recovery writes and locks lineage. Falsify it with the Random control.
 
 ## Find the Right Memory experiment
 
@@ -139,7 +139,7 @@ the checks used to compare this build with the Grok app.
 ## Claims not to make
 
 - Identity share is not a probability.
-- Glyph-address ranking is not holographic retrieval.
+- Operation-address ranking is not holographic retrieval, and it is not `retrieve_memory`.
 - A high match rate on random traces is sampling noise, not topology.
 - This is not a drop-in index for QMesh. The useful seam, if any, is GeminiPath as a *lineage probe* that then hands hits to `retrieve_memory`.
 
