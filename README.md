@@ -40,18 +40,21 @@ It does **not** write the HME field or the ledger. Glyphs here are the QOFT oper
 
 If dampening tracks hysteresis, the braid is not doing the work. If identity density recovers after re-entangle, GeminiPath extra-damps. Random traces are the control.
 
-## Glyphs (QOFT / HME ledger tags)
+## Operations (HME 3)
 
-| Glyph | HME role |
-| --- | --- |
-| `Σ◯` | Durable write (`encode_memory` default) |
-| `Θλ` | Retrieve / ReplayPlan / RecallPacket |
-| `Λψ` | Collapse / projection |
-| `Ψmeta` | Pre-collapse telemetry |
-| `Π↺` | QMesh lineage (`memory_precedes_collapse`) |
-| ApplyReplay | Mutation after retrieve — **not a stored glyph** |
+HME 3.0 dropped the closed QOFT glyph set. Live records store an open `operation` string. The default encode is `operation="write"`. Archived glyphs (`Σ◯`, `Θλ`, `Λψ`, `Ψmeta`, `Π↺`) remain only in [archive/v2.2](https://github.com/donaldtuttle/HME/tree/main/archive/v2.2).
 
-The 2025 notebook used a decorative alphabet (`Ξμ`, `Σ⊖`, `Ωµ`). This instrument uses the set HME actually writes.
+This braid still uses a closed five-face vocabulary so identity vs hysteresis can be ablated. It is a hypothesis about tick roles, not the `hme-v3` schema.
+
+| Label | HME 3 face | Archived glyph |
+| --- | --- | --- |
+| `write` | `encode_memory` default operation | `Σ◯` |
+| `retrieve` | `retrieve_memory` (not stored on the write) | `Θλ` |
+| `event` | `FieldRuntime` field event | `Λψ` |
+| `measure` | pre-event `write_salience` | `Ψmeta` |
+| `lineage` | `LineageGraph` | `Π↺` |
+
+The 2025 notebook used a decorative alphabet (`Ξμ`, `Σ⊖`, `Ωµ`). This instrument no longer pretends those, or the v2.2 glyphs, are what the live engine writes.
 
 ## Formulas
 

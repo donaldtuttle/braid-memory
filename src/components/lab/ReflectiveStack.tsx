@@ -1,4 +1,4 @@
-import type { Simulation } from "@/lib/braid/types";
+import { GLYPH_META, type Simulation } from "@/lib/braid/types";
 import { cn } from "@/lib/utils";
 
 export function ReflectiveStack({
@@ -41,8 +41,8 @@ export function ReflectiveStack({
                 )}
                 aria-label={`Step ${s.t} ${s.glyphA} ${s.glyphB}`}
               >
-                <span className="text-strand-a">{s.glyphA}</span>
-                <span className="mt-0.5 text-strand-b">{s.glyphB}</span>
+                <span className="text-strand-a">{GLYPH_META[s.glyphA].mark}</span>
+                <span className="mt-0.5 text-strand-b">{GLYPH_META[s.glyphB].mark}</span>
               </button>
             </li>
           );

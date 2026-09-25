@@ -43,7 +43,7 @@ export function ParamDock({
         <div className="flex rounded-full bg-elevated p-0.5">
           {(
             [
-              ["operators", "HME operators"],
+              ["operators", "HME 3 ops"],
               ["random", "Random control"],
             ] as const
           ).map(([id, label]) => (

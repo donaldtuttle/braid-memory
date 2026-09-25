@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 const KIND_HINT: Record<PairKind, string> = {
   identity: "identity",
   "write-retrieve": "write→retrieve",
-  "telemetry-collapse": "telemetry→collapse",
+  "telemetry-collapse": "measure→event",
   lineage: "lineage",
   other: "other",
 };
@@ -26,10 +26,10 @@ export function RecallPanel({
   return (
     <section className="rounded-[var(--radius-lg)] bg-surface p-4 shadow-[var(--shadow-border)]">
       <header className="mb-3">
-        <h3 className="font-display text-lg leading-tight">Glyph address</h3>
+        <h3 className="font-display text-lg leading-tight">Operation probe</h3>
         <p className="mt-1 text-xs text-muted">
           Ranked Gemini crossings. Not <span className="font-mono">retrieve_memory</span>
-          , not a calibrated confidence.
+          , and not a calibrated relevance score.
         </p>
       </header>
       <div className="flex flex-wrap gap-1.5">
@@ -90,8 +90,8 @@ export function RecallPanel({
         </ul>
       ) : (
         <p className="mt-3 text-sm text-muted">
-          Probe an operator. Θλ boosts write→retrieve crossings; Λψ boosts
-          telemetry→collapse.
+          Probe an operation. retrieve boosts write→retrieve crossings; event boosts
+          measure→event.
         </p>
       )}
     </section>

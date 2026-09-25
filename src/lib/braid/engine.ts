@@ -35,7 +35,7 @@ function phaseAt(t: number, params: SimParams): Phase {
 }
 
 function emptyMix(): GlyphMix {
-  return { Ψmeta: 0, Λψ: 0, "Σ◯": 0, Θλ: 0, "Π↺": 0 };
+  return { measure: 0, event: 0, write: 0, retrieve: 0, lineage: 0 };
 }
 
 function mixWeights(name: MixName): number[] {
@@ -45,13 +45,13 @@ function mixWeights(name: MixName): number[] {
 
 export function pairKind(a: Glyph, b: Glyph): PairKind {
   if (a === b) return "identity";
-  if ((a === "Σ◯" && b === "Θλ") || (a === "Θλ" && b === "Σ◯")) {
+  if ((a === "write" && b === "retrieve") || (a === "retrieve" && b === "write")) {
     return "write-retrieve";
   }
-  if ((a === "Ψmeta" && b === "Λψ") || (a === "Λψ" && b === "Ψmeta")) {
+  if ((a === "measure" && b === "event") || (a === "event" && b === "measure")) {
     return "telemetry-collapse";
   }
-  if (a === "Π↺" || b === "Π↺") return "lineage";
+  if (a === "lineage" || b === "lineage") return "lineage";
   return "other";
 }
 
@@ -120,12 +120,12 @@ function tally(glyphs: Glyph[]): GlyphMix {
 
 /**
  * ReflectiveStack × GeminiPath, now an instrument:
- * HME operator glyphs, optional affect-conditioned mix, and an ablation of
+ * HME 3 operation labels, optional affect-conditioned mix, and an ablation of
  * hysteresis (emotion return) versus braid extra-dampening (identity recovery).
  *
  * Ψintent(t) = 0.5·t + emotion_weight(t) + 2·coherence(t)
  * braid_word(t) = (Ξ_A[t], Ξ_B[t + Δt])     ← Γ_Gemini
- * braid_coherence = 1 if glyphs match else 0.5
+ * braid_coherence = 1 if operations match else 0.5
  * ΔΨ_braid = |Ψ_A − Ψ_B| − γ · braid_coherence
  */
 export function runCore(params: SimParams): Omit<Simulation, "sweep"> {
@@ -263,11 +263,11 @@ export function runCore(params: SimParams): Omit<Simulation, "sweep"> {
     harmonicWrite: dampening > 0.08 && meanPost < meanDiv,
     writeRetrieve: braidWord.filter((c) => c.kind === "write-retrieve").length,
     telemetryCollapse: braidWord.filter((c) => c.kind === "telemetry-collapse").length,
-    lineageLocks: braidWord.filter((c) => c.kind === "lineage" || (c.kind === "identity" && c.glyphA === "Π↺")).length,
+    lineageLocks: braidWord.filter((c) => c.kind === "lineage" || (c.kind === "identity" && c.glyphA === "lineage")).length,
     collapseDensity:
       divSteps.length === 0
         ? 0
-        : divSteps.filter((s) => s.glyphB === "Λψ").length / divSteps.length,
+        : divSteps.filter((s) => s.glyphB === "event").length / divSteps.length,
     mixA: tally(glyphA),
     mixB: tally(glyphB),
     mixBDiv: tally(divGlyphsB),
@@ -309,11 +309,11 @@ export function runSimulation(params: SimParams): Simulation {
 
 function kindBoost(glyph: Glyph, kind: PairKind): number {
   if (kind === "identity") return 1.15;
-  if (glyph === "Θλ" && kind === "write-retrieve") return 1.2;
-  if (glyph === "Σ◯" && kind === "write-retrieve") return 1.2;
-  if (glyph === "Λψ" && kind === "telemetry-collapse") return 1.15;
-  if (glyph === "Ψmeta" && kind === "telemetry-collapse") return 1.15;
-  if (glyph === "Π↺" && kind === "lineage") return 1.1;
+  if (glyph === "retrieve" && kind === "write-retrieve") return 1.2;
+  if (glyph === "write" && kind === "write-retrieve") return 1.2;
+  if (glyph === "event" && kind === "telemetry-collapse") return 1.15;
+  if (glyph === "measure" && kind === "telemetry-collapse") return 1.15;
+  if (glyph === "lineage" && kind === "lineage") return 1.1;
   return 1;
 }
 

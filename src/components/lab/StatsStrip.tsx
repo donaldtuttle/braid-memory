@@ -36,7 +36,7 @@ export function StatsStrip({ sim }: { sim: Simulation }) {
       />
       <Cell label="Mean ΔΨ div" value={formatNum(s.meanDeltaDiv)} />
       <Cell label="Mean ΔΨ post" value={formatNum(s.meanDeltaPost)} />
-      <Cell label="Σ◯ → Θλ" value={String(s.writeRetrieve)} hint="write-retrieve pairs" />
+      <Cell label="write → ret" value={String(s.writeRetrieve)} hint="write-retrieve pairs" />
     </div>
   );
 }

@@ -1,10 +1,13 @@
 /**
- * QOFT operator vocabulary as HME actually uses it on the ledger.
- * ApplyReplay is an operation after retrieve, not a stored glyph.
+ * HME 3 operation labels. v3 dropped the closed QOFT glyph set
+ * (Σ◯ Θλ Λψ Ψmeta Π↺). Those remain only in archive/v2.2.
+ * Live records store an open `operation` string; the default write is "write".
+ * This instrument still uses a closed five-face vocabulary so the braid can
+ * be ablated. It is a hypothesis about tick roles, not a ledger schema.
  *
- * @see https://github.com/donaldtuttle/HME
+ * @see https://github.com/donaldtuttle/HME/blob/main/docs/MIGRATION_V3.md
  */
-export const GLYPHS = ["Ψmeta", "Λψ", "Σ◯", "Θλ", "Π↺"] as const;
+export const GLYPHS = ["measure", "event", "write", "retrieve", "lineage"] as const;
 export type Glyph = (typeof GLYPHS)[number];
 
 export const EMOTIONS = ["curiosity", "fear"] as const;
@@ -19,49 +22,54 @@ export type TraceSource = "random" | "operators";
 
 export const GLYPH_META: Record<
   Glyph,
-  { name: string; role: string; hme: string; token: string }
+  { name: string; role: string; hme: string; token: string; mark: string }
 > = {
-  Ψmeta: {
-    name: "Psi-meta",
-    role: "Pre-collapse telemetry",
-    hme: "Ψmeta telemetry before projection",
+  measure: {
+    name: "Measure",
+    role: "Pre-event measurement",
+    hme: "write_salience before the field event",
     token: "glyph-psi",
+    mark: "mea",
   },
-  Λψ: {
-    name: "Lambda-psi",
-    role: "Collapse / projection",
-    hme: "Λψ local collapse event",
+  event: {
+    name: "Event",
+    role: "Field event",
+    hme: "FieldRuntime event (was Λψ)",
     token: "glyph-lambda",
+    mark: "evt",
   },
-  "Σ◯": {
-    name: "Sigma-circle",
-    role: "Durable write",
-    hme: "encode_memory default glyph",
+  write: {
+    name: "Write",
+    role: "Durable encode",
+    hme: 'encode_memory operation="write"',
     token: "glyph-sigma",
+    mark: "wrt",
   },
-  Θλ: {
-    name: "Theta-lambda",
-    role: "Retrieve / ReplayPlan",
-    hme: "retrieve_memory / recall packet",
+  retrieve: {
+    name: "Retrieve",
+    role: "Ranked read",
+    hme: "retrieve_memory — not a stored glyph",
     token: "glyph-theta",
+    mark: "ret",
   },
-  "Π↺": {
-    name: "Pi-loop",
-    role: "Lineage / recurrence",
-    hme: "QMesh memory_precedes_collapse",
+  lineage: {
+    name: "Lineage",
+    role: "Lineage edge",
+    hme: "LineageGraph (was QMesh / Π↺)",
     token: "glyph-pi",
+    mark: "lin",
   },
 };
 
 /**
  * Affect-conditioned operator mix. Hypothesis, not a measurement from HME:
- * fear shifts Ξ_B toward retrieve + collapse; recovery writes and locks lineage.
+ * fear shifts Ξ_B toward retrieve + event; recovery writes and locks lineage.
  * Random source is the control (uniform, notebook-shaped).
  */
 export const OPERATOR_MIX = {
-  curiosity: { Ψmeta: 0.22, Λψ: 0.1, "Σ◯": 0.3, Θλ: 0.22, "Π↺": 0.16 },
-  fear: { Ψmeta: 0.14, Λψ: 0.3, "Σ◯": 0.08, Θλ: 0.36, "Π↺": 0.12 },
-  recover: { Ψmeta: 0.18, Λψ: 0.12, "Σ◯": 0.28, Θλ: 0.16, "Π↺": 0.26 },
+  curiosity: { measure: 0.22, event: 0.1, write: 0.3, retrieve: 0.22, lineage: 0.16 },
+  fear: { measure: 0.14, event: 0.3, write: 0.08, retrieve: 0.36, lineage: 0.12 },
+  recover: { measure: 0.18, event: 0.12, write: 0.28, retrieve: 0.16, lineage: 0.26 },
 } as const satisfies Record<string, Record<Glyph, number>>;
 
 export type MixName = keyof typeof OPERATOR_MIX;

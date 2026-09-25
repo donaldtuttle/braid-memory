@@ -24,7 +24,7 @@ export function AgentCard({
     <article className="rounded-[var(--radius-lg)] bg-surface p-4 shadow-[var(--shadow-border)]">
       <header className="flex items-baseline justify-between gap-3">
         <h3 className={cn("font-mono text-sm tracking-wide", tone)}>{name}</h3>
-        <span className="font-display text-2xl leading-none">{glyph}</span>
+        <span className="font-mono text-sm">{glyph}</span>
       </header>
       <p className="mt-1 text-xs text-muted">{meta.hme}</p>
       <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 text-sm">

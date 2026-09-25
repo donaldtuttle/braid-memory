@@ -160,7 +160,7 @@ export function GeminiPath({
               fontSize={10}
               fontFamily="var(--font-mono)"
             >
-              {s.glyphA}
+              {GLYPH_META[s.glyphA].mark}
             </text>
             <circle
               cx={x}
@@ -188,7 +188,7 @@ export function GeminiPath({
               fontSize={10}
               fontFamily="var(--font-mono)"
             >
-              {s.glyphB}
+              {GLYPH_META[s.glyphB].mark}
             </text>
             <text
               x={x}

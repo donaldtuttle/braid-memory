@@ -33,7 +33,7 @@ function phaseCopy(phase: string, source: string): { title: string; body: string
     return {
       title: "Divergence",
       body: ops
-        ? "Ξ_B switches to fear. Operator mix shifts toward Θλ retrieve and Λψ collapse; writes (Σ◯) drop. ΔΨ climbs."
+        ? "Ξ_B switches to fear. Mix shifts toward retrieve and event; writes drop. ΔΨ climbs."
         : "Ξ_B switches to fear. Glyphs stay uniform random — only emotion weight moves ΔΨ. This is the control.",
     };
   }
@@ -132,15 +132,15 @@ export function LabShell() {
         <header className="flex flex-col gap-5 border-b border-border pb-6 md:flex-row md:items-end md:justify-between">
           <div className="min-w-0">
             <p className="font-mono text-[11px] tracking-[0.18em] text-muted uppercase">
-              Instrument · HME operators
+              Instrument · HME 3
             </p>
             <h1 className="mt-2 font-display text-4xl leading-none tracking-[-0.03em] md:text-5xl">
               Braid Memory
             </h1>
             <p className="mt-2 max-w-xl text-sm text-muted">
               Sweep γ and Δt. If dampening tracks hysteresis, the braid is not
-              doing the work. Operator glyphs are the QOFT set HME writes on the
-              ledger — this lab does not touch the field.
+              doing the work. Labels are HME 3 operations, not the archived
+              v2.2 glyphs. This lab does not touch the field.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
@@ -231,7 +231,7 @@ export function LabShell() {
                 </span>
               </div>
               <TabsContent value="gemini">
-                <BraidFrame caption="Γ_Gemini pairs Ξ_A[t] with Ξ_B[t+Δt]. Green identity, teal write→retrieve, rust telemetry→collapse, gold lineage.">
+                <BraidFrame caption="Γ_Gemini pairs Ξ_A[t] with Ξ_B[t+Δt]. Green identity, teal write→retrieve, rust measure→event, gold lineage.">
                   <GeminiPath
                     sim={sim}
                     cursor={cursor}
@@ -242,7 +242,7 @@ export function LabShell() {
                 </BraidFrame>
               </TabsContent>
               <TabsContent value="artin">
-                <BraidFrame caption="2-strand Artin word. Matched glyphs stay in lane (identity); mismatches cross, over-strand by glyph index.">
+                <BraidFrame caption="2-strand Artin word. Matched operations stay in lane (identity); mismatches cross, over-strand by label index.">
                   <ArtinBraid
                     sim={sim}
                     cursor={cursor}
@@ -303,10 +303,11 @@ export function LabShell() {
         <footer className="mt-8 border-t border-border pt-5 text-xs text-subtle">
           <GlyphKey />
           <p className="mt-4">
-            HME stores payloads as FFT patterns plus a ledger (hashes, position,
-            glyph). Glyphs there are operation tags: Σ◯ default write, Θλ retrieve
-            / ReplayPlan, Λψ collapse, Ψmeta telemetry, Π↺ QMesh lineage.
-            ApplyReplay is a mutation after retrieve, not a stored glyph.
+            HME 3 stores FFT patterns plus a ledger (hashes, position, an open
+            operation string). The default encode is operation="write".
+            v2.2 glyphs (Σ◯ Θλ Λψ Ψmeta Π↺) live only in archive/v2.2. This
+            braid uses five tick roles — measure, event, write, retrieve,
+            lineage — as a hypothesis, not as the schema.
           </p>
           <p className="mt-1">
             Space plays, arrows step. Seed is deterministic. Side quest of{" "}

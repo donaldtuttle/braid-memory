@@ -3,17 +3,17 @@ import assert from "node:assert/strict";
 import { pairKind, runCore, runSimulation } from "./engine.ts";
 import { DEFAULT_PARAMS, GLYPHS, type Glyph } from "./types.ts";
 
-describe("HME operator glyphs", () => {
-  it("uses the QOFT ledger set, not the notebook alphabet", () => {
-    assert.deepEqual([...GLYPHS], ["Ψmeta", "Λψ", "Σ◯", "Θλ", "Π↺"]);
+describe("HME 3 operations", () => {
+  it("uses plain v3 labels, not the archived QOFT glyphs", () => {
+    assert.deepEqual([...GLYPHS], ["measure", "event", "write", "retrieve", "lineage"]);
   });
 
   it("classifies write→retrieve and identity", () => {
-    assert.equal(pairKind("Σ◯", "Θλ"), "write-retrieve");
-    assert.equal(pairKind("Θλ", "Σ◯"), "write-retrieve");
-    assert.equal(pairKind("Σ◯", "Σ◯"), "identity");
-    assert.equal(pairKind("Ψmeta", "Λψ"), "telemetry-collapse");
-    assert.equal(pairKind("Π↺", "Θλ"), "lineage");
+    assert.equal(pairKind("write", "retrieve"), "write-retrieve");
+    assert.equal(pairKind("retrieve", "write"), "write-retrieve");
+    assert.equal(pairKind("write", "write"), "identity");
+    assert.equal(pairKind("measure", "event"), "telemetry-collapse");
+    assert.equal(pairKind("lineage", "retrieve"), "lineage");
   });
 });
 
@@ -32,7 +32,7 @@ describe("runCore", () => {
     assert.equal(a.stats.braidShare, b.stats.braidShare);
   });
 
-  it("emits only HME glyphs", () => {
+  it("emits only HME 3 operation labels", () => {
     const sim = runCore({ ...DEFAULT_PARAMS, steps: 32, seed: 41 });
     const allowed = new Set<Glyph>(GLYPHS);
     for (const s of sim.steps) {
@@ -56,13 +56,13 @@ describe("runCore", () => {
       reentanglePoint: 24,
       seed: 13,
     });
-    const fearOps = sim.stats.mixBDiv.Θλ + sim.stats.mixBDiv.Λψ;
-    const aFearish = sim.stats.mixA.Θλ + sim.stats.mixA.Λψ;
+    const fearOps = sim.stats.mixBDiv.retrieve + sim.stats.mixBDiv.event;
+    const aFearish = sim.stats.mixA.retrieve + sim.stats.mixA.event;
     assert.ok(
       fearOps > aFearish,
       `B diverge retrieve+collapse ${fearOps} vs A ${aFearish}`,
     );
-    assert.ok(sim.stats.mixBDiv["Σ◯"] < sim.stats.mixA["Σ◯"] + 0.05);
+    assert.ok(sim.stats.mixBDiv.write < sim.stats.mixA.write + 0.05);
   });
 
   it("random source does not systematically extra-damp", () => {

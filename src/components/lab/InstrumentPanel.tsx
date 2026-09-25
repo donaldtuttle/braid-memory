@@ -85,9 +85,9 @@ function ShareBar({
 
 const KIND_LABEL: Record<string, string> = {
   identity: "identity",
-  "write-retrieve": "Σ◯ → Θλ",
-  "telemetry-collapse": "Ψmeta → Λψ",
-  lineage: "Π↺ lineage",
+  "write-retrieve": "write → retrieve",
+  "telemetry-collapse": "measure → event",
+  lineage: "lineage",
 };
 
 export function InstrumentPanel({ sim }: { sim: Simulation }) {
@@ -152,12 +152,12 @@ export function InstrumentPanel({ sim }: { sim: Simulation }) {
           </li>
         ))}
         <li className="rounded-full bg-elevated px-2.5 py-1 font-mono text-[11px] text-muted">
-          Λψ density {formatPct(s.collapseDensity)}
+          event density {formatPct(s.collapseDensity)}
         </li>
       </ul>
 
       <p className="mt-3 text-[11px] text-subtle">
-        Operator mix is a hypothesis (fear → retrieve + collapse). Random source is
+        Operator mix is a hypothesis (fear → retrieve + event). Random source is
         the control. This panel does not write the HME field or ledger.
       </p>
     </section>
