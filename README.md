@@ -1,5 +1,25 @@
 # Braid Memory
 
+## What is this?
+
+A browser lab for comparing ways to connect updates with their earlier source
+records, alongside a separate simulation of paired operation traces.
+
+## Why care?
+
+When several histories look alike and some clues are missing, matching each
+update independently may lose useful ordering information. This lab lets you
+ask whether ordered alignment helps, and when out-of-order updates make it
+worse, using ordinary search and scrambled connections as controls.
+
+## Try this
+
+Follow [Run](#run), open **Experiment**, and select **Run comparison**.
+Replay a history and reveal its correct sources. Change missing clues or delay
+variation and compare the methods again. These are exploratory synthetic
+records, not a result about an AI's real conversation memory.
+
+
 ## New: Find the Right Memory
 
 **Can connecting two histories help find the right earlier memory?** The new
